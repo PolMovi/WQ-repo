@@ -63,6 +63,7 @@ body{
 button{ padding:10px 14px; border-radius:8px; border:1px solid rgba(0,0,0,0.08); background:white; cursor:pointer; }
 button.primary{ background:var(--accent); color:white; border:none; } button:disabled{ opacity:0.55; cursor:not-allowed; }
 .input-row{ display:flex; gap:8px; align-items:center; margin-top:8px; } input[type="text"]{ flex:1; padding:10px 12px; border-radius:8px; border:1px solid #d8dbe8; font-size:1rem; }
+select{ padding:10px 12px; border-radius:8px; border:1px solid #d8dbe8; font-size:1rem; background:white; }
 .small{ font-size:0.9rem; color:var(--muted); } .feedback{ margin-top:10px; font-size:0.95rem; } .feedback.error{ color:var(--error); } .feedback.info{ color:var(--info); } .feedback.success{ color:var(--success); }
 
 /* guidance & temporary badge */
@@ -132,8 +133,57 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
 
 .print-actions{ margin-top:12px; }
 
+/* --- Home screen customizations requested --- */
+#screen-home .home-text { text-align:center; }
+#screen-home .actions { justify-content:center; pointer-events:auto; }
+#btn-start-home.primary {
+  font-size:1.15rem;
+  padding:14px 22px;
+  border-radius:12px;
+  min-width:160px;
+  box-shadow: 0 8px 20px rgba(11,102,255,0.12);
+}
+
+/* Credits grid */
+.credits-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
+  margin-top:14px;
+  align-items:start;
+}
+.credits-column{
+  text-align:left;
+}
+.credits-column h4{ margin:0 0 8px 0; font-size:1rem; color:#000; }
+.credits-column ul{ margin:0; padding-left:18px; }
+.credits-column li{ text-align:left; margin-bottom:6px; }
+.credits-column a{ color:var(--accent); text-decoration:none; }
+.credits-column a:hover{ text-decoration:underline; }
+
+/* Attribution notice */
+.attribution{
+  margin-top:14px;
+  padding:12px;
+  border-radius:8px;
+  background:#fff8f5;
+  border:1px solid #fdeedb;
+  color:var(--muted);
+  font-size:0.95rem;
+  line-height:1.35;
+}
+
+/* Players screen specific */
+.players-section-row{ display:flex; flex-direction:column; gap:10px; margin-bottom:8px; }
+.form-field { display:flex; flex-direction:column; gap:6px; text-align:left; max-width:520px; margin:0 auto; }
+.form-field label{ font-weight:600; color:#1b2746; }
+.conditional { display:none; }
+
 @media (max-width:920px){ .hallazgo-card{ width:calc(33.333% - 10px); } .final-table{ width:100%; } }
-@media (max-width:640px){ .phase1-row{ flex-direction:column; } .deck{ width:100%; } .hallazgo-card{ width:calc(50% - 10px); } .app{ padding:18px; padding-top:48px; } .app-header{ margin:-48px 0 8px 0; } }
+@media (max-width:640px){
+  .phase1-row{ flex-direction:column; } .deck{ width:100%; } .hallazgo-card{ width:calc(50% - 10px); } .app{ padding:18px; padding-top:48px; } .app-header{ margin:-48px 0 8px 0; }
+  .credits-grid{ grid-template-columns: 1fr; }
+}
   </style>
 </head>
 <body>
@@ -144,16 +194,76 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       <button class="close-btn" style="display:none;">×</button>
       <div class="home-text">
         <p class="tagline">El juego que revela los tesoros ocultos de tu organización.</p>
-        <p class="credit">Diseñado por el Equipo de investigación en Estrategia Organizacional — EAFIT, 2025</p>
-        <h3>Introducción</h3>
+
+        <div class="actions">
+          <button id="btn-start-home" class="primary" type="button" aria-label="Empezar">Empezar</button>
+        </div>
+
+        <p class="credit">Diseñado por el Semillero de investigación en Estrategia Organizacional — EAFIT, 2025</p>
+
+        <h3 class="screen-title">Introducción</h3>
         <p>Winners &amp; Qualifiers ayuda a los equipos a identificar recursos y capacidades tácitas con potencial estratégico.</p>
+
+        <!-- Integrantes -->
+        <h3 class="screen-title" style="margin-top:18px;">Integrantes</h3>
+
+        <div class="credits-grid" role="group" aria-label="Estudiantes y Profesores">
+          <!-- Columna Estudiantes -->
+          <div class="credits-column" aria-labelledby="estudiantes-head">
+            <h4 id="estudiantes-head">Estudiantes</h4>
+            <ul>
+              <li><a href="https://www.linkedin.com/in/paulmoscosov" target="_blank" rel="noopener noreferrer">Paul Moscoso V.</a></li>
+              <li><a href="https://www.linkedin.com/in/mateo-valencia-hincapíe" target="_blank" rel="noopener noreferrer">Mateo Valencia Incapié</a></li>
+              <li><a href="https://www.linkedin.com/in/daniel-tamayo-79a4351b8/" target="_blank" rel="noopener noreferrer">Daniel Tamayo</a></li>
+              <li><a href="https://www.linkedin.com/in/ana-maria-gomez-mesa-1793462a3/" target="_blank" rel="noopener noreferrer">Ana Gómez</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna Profesores -->
+          <div class="credits-column" aria-labelledby="profesores-head">
+            <h4 id="profesores-head">Profesores</h4>
+            <ul>
+              <li><a href="https://www.linkedin.com/in/martha-eugenia-reyes-sarmiento-194b9099/" target="_blank" rel="noopener noreferrer">Martha Reyes Sarmiento</a></li>
+              <li><a href="https://www.linkedin.com/in/jmaciasp/" target="_blank" rel="noopener noreferrer">John Macías</a></li>
+              <li><a href="https://www.eafit.edu.co/nuestros-profesores/jorge-ivan-velez-castiblanco" target="_blank" rel="noopener noreferrer">Jorge Iván Vélez Castiblanco</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribution" role="note" aria-live="polite">
+          Aviso de atribución: El uso, modificación o redistribución de esta herramienta, sus materiales asociados o resultados derivados requiere la debida atribución a los miembros del equipo arriba indicados y a la Universidad EAFIT. Se recomienda la siguiente forma de cita mínima: “Semillero de investigación en estrategia, Universidad EAFIT (2025).” Además, cuando proceda, incluya los nombres de los autores responsables y un enlace a la fuente original.
+        </div>
       </div>
-      <div class="actions"><button id="btn-start-home" class="primary" type="button" aria-label="Empezar">Empezar</button></div>
     </section>
 
     <section id="screen-players" class="screen" aria-labelledby="players-title">
       <button class="close-btn" title="Cancelar juego">×</button>
-      <h2 id="players-title" class="screen-title">Ingresar jugadores</h2>
+      <h2 id="players-title" class="screen-title">Ingresar datos de partida</h2>
+
+      <div class="players-section-row">
+        <div class="form-field" id="org-fields">
+          <label for="org-name">Organización <span aria-hidden="true" style="color:#d64545">*</span></label>
+          <input id="org-name" name="org-name" type="text" placeholder="Nombre de la organización" autocomplete="organization" />
+
+          <label for="org-type">Tipo de organización <span aria-hidden="true" style="color:#d64545">*</span></label>
+          <select id="org-type" name="org-type" aria-required="true">
+            <option value="">-- Seleccione una opción --</option>
+            <option value="Empresa familiar">Empresa familiar</option>
+            <option value="Emprendimiento">Emprendimiento</option>
+            <option value="Mipyme">Mipyme</option>
+            <option value="Empresa consolidada">Empresa consolidada</option>
+            <option value="Otra">Otra</option>
+          </select>
+
+          <div id="org-type-other-wrap" class="conditional">
+            <label for="org-type-other">Si eligió "Otra", detallar</label>
+            <input id="org-type-other" name="org-type-other" type="text" placeholder="Detalle del tipo de organización" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="players-section-title" class="screen-title" style="margin-top:6px;">Nombre del jugador</h2>
+
       <form id="form-add-player" onsubmit="return false;">
         <label for="player-name">Nombre del jugador</label>
         <div class="input-row"><input id="player-name" name="player-name" type="text" placeholder="Ej. María" autocomplete="off" /><button id="btn-add-player" type="button">Agregar</button></div>
@@ -162,7 +272,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       <div class="players-list">
         <h3 id="players-list-title">Jugadores añadidos (0/10)</h3>
         <ul id="players-ul" aria-live="polite"></ul>
-        <p id="players-note" class="small">Se requieren entre 4 y 10 jugadores para comenzar el juego.</p>
+        <p id="players-note" class="small">Se requieren entre 4 y 10 jugadores para comenzar el juego. Además, complete los datos de partida arriba.</p>
         <p id="player-feedback" class="feedback" role="status" aria-live="polite"></p>
       </div>
 
@@ -180,9 +290,8 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
         para finalizar antes de que expire el tiempo.
       </p>
 
-      <!-- Guidance text requested by user -->
       <div class="guidance" id="phase1-guidance">
-        Recurso: todo lo que la organización posee. Siempre empieza por un adjetivo.
+        Recurso: todo lo que la organización posee. Siempre empieza por un sustantivo.
         <br>
         Capacidad: todo lo que la organización hace con lo que posee. Siempre empieza por un verbo en infinitivo.
       </div>
@@ -253,6 +362,9 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       <button class="close-btn" title="Cancelar juego">×</button>
       <h2 id="results-title" class="screen-title">Resultados finales</h2>
 
+      <!-- NEW: Organización y Tipo mostrados antes de la tabla de puntajes -->
+      <div id="results-org" class="small" aria-live="polite" style="margin-bottom:10px; color:var(--muted);"></div>
+
       <div class="results-wrap" id="results-wrap">
         <table class="results-table" id="results-table">
           <thead>
@@ -277,6 +389,25 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
 (function(){
   'use strict';
 
+  // safety helper to avoid unhandled errors when appendChild fails at runtime
+  function appendSafe(parent, child){
+    try{
+      if(!parent){
+        console.error('[WQ] appendSafe: parent is null/undefined', parent, child);
+        return false;
+      }
+      if(typeof parent.appendChild !== 'function'){
+        console.error('[WQ] appendSafe: parent.appendChild not a function', parent, child);
+        return false;
+      }
+      parent.appendChild(child);
+      return true;
+    }catch(err){
+      console.error('[WQ] appendSafe caught appendChild error', err, parent, child);
+      return false;
+    }
+  }
+
   // --- configuración y estado centralizado ---
   const MIN_PLAYERS = 4;
   const MAX_PLAYERS = 10;
@@ -297,7 +428,11 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     remainingSeconds: 0,
     phase2Order: [],
     phase2SelectedIndex: null,
-    phase2StarCard: null
+    phase2StarCard: null,
+    // store partida data
+    orgName: '',
+    orgType: '',
+    orgTypeOther: ''
   };
 
   // --- questionsDeck aprobado (INMUTABLE) ---
@@ -305,13 +440,13 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué truco usas en tu trabajo que no está escrito en ningún manual?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "Si alguien nuevo llega a tu puesto, ¿qué consejo le darías para no equivocarse?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué es lo más difícil de explicar de tu trabajo, pero que tú ya lo haces en automático?" }),
-    Object.freeze({ category: "Conocimiento tácito", text: "¿Qué detalle pequeño marca la diferencia entre hacerlo bien o mal?" }),
+    Object.freeze({ category: "Conocimiento tácito", text: "¿Qué detalle pequeño marca la diferencia en hacerlo bien?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué error cometiste una vez que nunca olvidarás y qué aprendiste?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué cosa aprendiste mirando a otro y nunca lo viste en un curso?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué actividad haces con “tu estilo propio” que otros imitan?" }),
     Object.freeze({ category: "Conocimiento tácito", text: "¿Qué tarea solo tú sabes hacer de cierta forma que asegura el resultado?" }),
     Object.freeze({ category: "Relaciones y redes informales", text: "Cuando tienes un problema urgente, ¿a quién llamas primero y por qué?" }),
-    Object.freeze({ category: "Relaciones y redes informales", text: "¿Quién fuera de tu área te ha salvado de un apuro más de una vez?" }),
+    Object.freeze({ category: "Relaciones y redes informales", text: "¿Quién, fuera de tu área, te ha salvado de un apuro más de una vez?" }),
     Object.freeze({ category: "Relaciones y redes informales", text: "¿Con qué persona externa (proveedor, cliente, contacto) tenemos un puente clave?" }),
     Object.freeze({ category: "Relaciones y redes informales", text: "¿Qué relación personal facilita que un proceso avance sin trabas?" }),
     Object.freeze({ category: "Relaciones y redes informales", text: "¿Qué conversación de pasillo o café evita más problemas que una reunión formal?" }),
@@ -336,7 +471,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     Object.freeze({ category: "Intuiciones y toma de decisiones", text: "¿Qué decisión tomas distinto a como lo haría alguien nuevo?" }),
     Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "Si mañana no vinieras, ¿qué dejaría de hacerse?" }),
     Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué cosa depende solo de ti y debería estar más compartida?" }),
-    Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué recurso perder sería un desastre para tu equipo?" }),
+    Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué recurso, al perderse, sería un desastre para tu equipo?" }),
     Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué conocimiento es frágil porque solo lo maneja una persona?" }),
     Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué herramienta o persona es tu “plan B” cuando todo falla?" }),
     Object.freeze({ category: "Vulnerabilidades y resiliencia", text: "¿Qué práctica protege al equipo en momentos de crisis?" }),
@@ -363,13 +498,13 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     Object.freeze({ category: "Valor percibido por cliente y procesos", text: "Genera un valor difícil de sustituir por alternativas externas." }),
     Object.freeze({ category: "Valor percibido por cliente y procesos", text: "Es notorio incluso para quienes no son expertos, creando impacto emocional o funcional." }),
     Object.freeze({ category: "Rareza y origen distintivo", text: "No hay muchas organizaciones con un recurso o capacidad semejante." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Posee una esencia única derivada de la historia o trayectoria propia de la organización." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Nació de aprendizajes, errores o experiencias irrepetibles." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Depende de personas con talentos escasos o difíciles de encontrar." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "No puede ser replicado sin vivir la misma experiencia organizacional." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Tiene un sello cultural o simbólico propio de la empresa." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Su desarrollo refleja valores o identidad corporativa profundos." }),
-    Object.freeze({ category: "Rareza y origen distintivo", text: "Si desapareciera, dejaría un vacío imposible de reemplazar." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Posee una esencia única derivada de la historia o trayectoria propia de la organización." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Nació de aprendizajes, errores o experiencias irrepetibles." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Depende de personas con talentos escasos o difíciles de encontrar." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "No puede ser replicado sin vivir la misma experiencia organizacional." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Tiene un sello cultural o simbólico propio de la empresa." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Su desarrollo refleja valores o identidad corporativa profundos." }),
+    Object.freeze({ category: "Rareza y origen distintitivo", text: "Si desapareciera, dejaría un vacío imposible de reemplazar." }),
     Object.freeze({ category: "Difícil de imitar o copiar", text: "Su conocimiento está poco documentado y se transmite de forma tácita." }),
     Object.freeze({ category: "Difícil de imitar o copiar", text: "Está protegido por barreras legales, secretos industriales o relaciones exclusivas." }),
     Object.freeze({ category: "Difícil de imitar o copiar", text: "Es fácil de ver, pero difícil de entender y replicar correctamente." }),
@@ -386,20 +521,6 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     Object.freeze({ category: "Capacidad organizativa para aprovecharlo", text: "Se aprovecha mediante aprendizaje continuo y mejora adaptativa." }),
     Object.freeze({ category: "Capacidad organizativa para aprovecharlo", text: "Aporta sin depender del contexto: sigue siendo útil ante cambios de mercado o regulación." }),
     Object.freeze({ category: "Capacidad organizativa para aprovecharlo", text: "Evoluciona junto con la organización, adaptándose a nuevos desafíos." })
-  ]);
-
-  // --- starDeckOriginal aprobado (INMUTABLE) ---
-  const starDeckOriginal = Object.freeze([
-    Object.freeze({ question: "¿Este recurso es difícil de copiar o de igualar por otros?", clarification: "Poseemos una capacidad o activo que otros no pueden replicar fácilmente." }),
-    Object.freeze({ question: "¿Depende de un conocimiento, práctica o relación que solo nosotros tenemos?", clarification: "Es un saber o vínculo único, nacido de nuestra experiencia o contexto." }),
-    Object.freeze({ question: "¿Genera valor visible o apreciable para el cliente?", clarification: "Impacta directamente en la satisfacción, fidelidad o preferencia del cliente." }),
-    Object.freeze({ question: "¿Requiere experiencia o cultura interna para funcionar bien?", clarification: "Se apoya en nuestra forma de trabajar, en hábitos o valores propios." }),
-    Object.freeze({ question: "¿Podría sostenerse sin una persona o equipo específico?", clarification: "Está institucionalizado; no depende de individuos puntuales." }),
-    Object.freeze({ question: "¿Contribuye directamente a que logremos nuestros objetivos estratégicos?", clarification: "Está alineado con la dirección y las prioridades de la organización." }),
-    Object.freeze({ question: "¿Se mantiene vigente si el entorno o la tecnología cambian?", clarification: "Es adaptable y conserva su valor incluso ante cambios externos." }),
-    Object.freeze({ question: "¿Podemos ampliarlo o aplicarlo a otras áreas sin perder su fuerza?", clarification: "Es escalable y puede generar más valor en distintas unidades o proyectos." }),
-    Object.freeze({ question: "¿Es reconocido fuera del equipo como algo que hacemos mejor que otros?", clarification: "Tiene reputación diferenciadora dentro o fuera de la organización." }),
-    Object.freeze({ question: "¿Hemos invertido tiempo o recursos en protegerlo o fortalecerlo?", clarification: "Está cuidado, formalizado o protegido como un activo estratégico." })
   ]);
 
   // --- utilidades ---
@@ -464,11 +585,24 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       btnBackToHome2: document.getElementById('btn-back-to-home-2'),
       btnPrintResults: document.getElementById('btn-print-results'),
       phase2HallazgosWrap: document.getElementById('phase2-hallazgos'),
-      tipoDetectedEl: document.getElementById('tipo-detected')
+      tipoDetectedEl: document.getElementById('tipo-detected'),
+      // new fields
+      orgNameInput: document.getElementById('org-name'),
+      orgTypeSelect: document.getElementById('org-type'),
+      orgTypeOtherWrap: document.getElementById('org-type-other-wrap'),
+      orgTypeOtherInput: document.getElementById('org-type-other'),
+      // results org display
+      resultsOrg: document.getElementById('results-org')
     };
 
     // listeners
-    refs.btnStartHome && refs.btnStartHome.addEventListener('click', startNewSession);
+    if(refs.btnStartHome){
+      refs.btnStartHome.addEventListener('click', function(e){
+        console.log('[WQ] btn-start-home clicked');
+        startNewSession();
+      });
+    }
+
     refs.btnAddPlayer && refs.btnAddPlayer.addEventListener('click', addPlayer);
     refs.playerNameInput && refs.playerNameInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter'){ e.preventDefault(); addPlayer(); }});
     refs.btnStartGame && refs.btnStartGame.addEventListener('click', startGamePhase1);
@@ -489,6 +623,14 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       b.addEventListener('click', ()=> { resetGameState(); showScreen('home'); });
     });
 
+    // new field listeners
+    if(refs.orgNameInput) refs.orgNameInput.addEventListener('input', updateStartGameButton);
+    if(refs.orgTypeSelect) refs.orgTypeSelect.addEventListener('change', onOrgTypeChange);
+    if(refs.orgTypeOtherInput) refs.orgTypeOtherInput.addEventListener('input', updateStartGameButton);
+
+    // Expose startNewSession globally as a safe fallback
+    window.startNewSession = startNewSession;
+
     // init decks & UI
     resetQuestionsDeck();
     resetFeaturesDeck();
@@ -506,10 +648,36 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       phase2Order: appState.phase2Order.slice(),
       starDeckAvailableLen: appState.starDeckAvailable.length,
       questionsLeft: appState.questionsDeckAvailable.length,
-      featuresLeft: appState.featuresDeckAvailable.length
+      featuresLeft: appState.featuresDeckAvailable.length,
+      org: { name: appState.orgName, type: appState.orgType, other: appState.orgTypeOther }
     });
 
     log('init complete');
+  }
+
+  // --- Organization helpers ---
+  function onOrgTypeChange(){
+    const val = refs.orgTypeSelect ? refs.orgTypeSelect.value : '';
+    if(val === 'Otra'){
+      if(refs.orgTypeOtherWrap) refs.orgTypeOtherWrap.style.display = 'block';
+      if(refs.orgTypeOtherInput) refs.orgTypeOtherInput.focus();
+    } else {
+      if(refs.orgTypeOtherWrap) refs.orgTypeOtherWrap.style.display = 'none';
+      if(refs.orgTypeOtherInput) refs.orgTypeOtherInput.value = '';
+    }
+    updateStartGameButton();
+  }
+
+  function orgFieldsValid(){
+    const name = refs.orgNameInput ? (refs.orgNameInput.value || '').trim() : '';
+    const type = refs.orgTypeSelect ? (refs.orgTypeSelect.value || '') : '';
+    if(!name) return false;
+    if(!type) return false;
+    if(type === 'Otra'){
+      const other = refs.orgTypeOtherInput ? (refs.orgTypeOtherInput.value || '').trim() : '';
+      if(!other) return false;
+    }
+    return true;
   }
 
   // --- UI helpers ---
@@ -539,7 +707,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     ul.innerHTML = '';
     refs.playersListTitle && (refs.playersListTitle.textContent = `Jugadores añadidos (${appState.players.length}/${MAX_PLAYERS})`);
     if(appState.players.length === 0){
-      const li = document.createElement('li'); li.className = 'small'; li.textContent = 'No hay jugadores añadidos todavía.'; ul.appendChild(li); return;
+      const li = document.createElement('li'); li.className = 'small'; li.textContent = 'No hay jugadores añadidos todavía.'; appendSafe(ul, li); return;
     }
     appState.players.forEach((p, idx) => {
       const li = document.createElement('li');
@@ -547,20 +715,28 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const span = document.createElement('span'); span.className = 'player-name'; span.textContent = p;
       const removeBtn = document.createElement('button'); removeBtn.type = 'button'; removeBtn.textContent = 'Eliminar';
       removeBtn.addEventListener('click', ()=> { appState.players.splice(idx,1); renderPlayers(); updateStartGameButton(); });
-      li.appendChild(span); li.appendChild(removeBtn); ul.appendChild(li);
+      appendSafe(li, span); appendSafe(li, removeBtn); appendSafe(ul, li);
     });
   }
 
   function updateStartGameButton(){
     const btn = refs.btnStartGame;
     if(!btn) return;
-    if(appState.players.length >= MIN_PLAYERS && appState.players.length <= MAX_PLAYERS){
+    const playersOk = (appState.players.length >= MIN_PLAYERS && appState.players.length <= MAX_PLAYERS);
+    const orgOk = orgFieldsValid();
+    if(playersOk && orgOk){
       btn.disabled = false;
-      refs.playersNote && (refs.playersNote.textContent = `Hay ${appState.players.length} jugadores. Puedes comenzar. (Se permiten ${MIN_PLAYERS}–${MAX_PLAYERS})`);
+      refs.playersNote && (refs.playersNote.textContent = `Hay ${appState.players.length} jugadores. Puedes comenzar. (Se permiten ${MIN_PLAYERS}–${MAX_PLAYERS}). Datos de partida completos.`);
     } else {
       btn.disabled = true;
-      if(appState.players.length < MIN_PLAYERS) refs.playersNote && (refs.playersNote.textContent = `Faltan ${MIN_PLAYERS - appState.players.length} jugador(es) para poder comenzar. Min ${MIN_PLAYERS}, máx ${MAX_PLAYERS}.`);
-      else refs.playersNote && (refs.playersNote.textContent = `Se ha alcanzado el máximo de jugadores (${MAX_PLAYERS}).`);
+      // show more specific hint
+      if(!orgOk){
+        refs.playersNote && (refs.playersNote.textContent = `Complete los datos de partida obligatorios arriba antes de comenzar.`);
+      } else if(appState.players.length < MIN_PLAYERS){
+        refs.playersNote && (refs.playersNote.textContent = `Faltan ${MIN_PLAYERS - appState.players.length} jugador(es) para poder comenzar. Min ${MIN_PLAYERS}, máx ${MAX_PLAYERS}.`);
+      } else {
+        refs.playersNote && (refs.playersNote.textContent = `Se ha alcanzado el máximo de jugadores (${MAX_PLAYERS}).`);
+      }
     }
   }
 
@@ -757,7 +933,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     if(!tbody) return;
     tbody.innerHTML = '';
     if(appState.phase1Entries.length === 0){
-      const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 10; td.className = 'small'; td.textContent = 'No hay registros aún.'; tr.appendChild(td); tbody.appendChild(tr); return;
+      const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 10; td.className = 'small'; td.textContent = 'No hay registros aún.'; appendSafe(tr, td); appendSafe(tbody, tr); return;
     }
     appState.phase1Entries.forEach(e=>{
       const tr = document.createElement('tr');
@@ -774,14 +950,27 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const tdClassif = document.createElement('td'); tdClassif.textContent = classif;
       const tdPhase2 = document.createElement('td'); tdPhase2.textContent = String(phase2Score);
       const tdFinal = document.createElement('td'); tdFinal.textContent = String(finalScore);
-      tr.appendChild(tdJugador); tr.appendChild(tdHallazgo); tr.appendChild(tdTipo); tr.appendChild(tdRespondio); tr.appendChild(tdPregunta); tr.appendChild(tdCaracteristica); tr.appendChild(tdPuntaje); tr.appendChild(tdClassif); tr.appendChild(tdPhase2); tr.appendChild(tdFinal);
-      tbody.appendChild(tr);
+      appendSafe(tr, tdJugador); appendSafe(tr, tdHallazgo); appendSafe(tr, tdTipo); appendSafe(tr, tdRespondio); appendSafe(tr, tdPregunta); appendSafe(tr, tdCaracteristica); appendSafe(tr, tdPuntaje); appendSafe(tr, tdClassif); appendSafe(tr, tdPhase2); appendSafe(tr, tdFinal);
+      appendSafe(tbody, tr);
     });
   }
 
   function updateCurrentPlayerUI(){ if(refs.currentPlayerNameEl) refs.currentPlayerNameEl.textContent = appState.players[appState.currentPlayerIndex] || '—'; }
 
-  // --- fase 2 ---
+  // --- phase2 decks (starDeckOriginal defined next) ---
+  const starDeckOriginal = Object.freeze([
+    Object.freeze({ question: "¿Este recurso es difícil de copiar o de igualar por otros?", clarification: "Poseemos una capacidad o activo que otros no pueden replicar fácilmente." }),
+    Object.freeze({ question: "¿Depende de un conocimiento, práctica o relación que solo nosotros tenemos?", clarification: "Es un saber o vínculo único, nacido de nuestra experiencia o contexto." }),
+    Object.freeze({ question: "¿Genera valor visible o apreciable para el cliente?", clarification: "Impacta directamente en la satisfacción, fidelidad o preferencia del cliente." }),
+    Object.freeze({ question: "¿Requiere experiencia o cultura interna para funcionar bien?", clarification: "Se apoya en nuestra forma de trabajar, en hábitos o valores propios." }),
+    Object.freeze({ question: "¿Podría sostenerse sin una persona o equipo específico?", clarification: "Está institucionalizado; no depende de individuos puntuales." }),
+    Object.freeze({ question: "¿Contribuye directamente a que logremos nuestros objetivos estratégicos?", clarification: "Está alineado con la dirección y las prioridades de la organización." }),
+    Object.freeze({ question: "¿Se mantiene vigente si el entorno o la tecnología cambian?", clarification: "Es adaptable y conserva su valor incluso ante cambios externos." }),
+    Object.freeze({ question: "¿Podemos ampliarlo o aplicarlo a otras áreas sin perder su fuerza?", clarification: "Es escalable y puede generar más valor en distintas unidades o proyectos." }),
+    Object.freeze({ question: "¿Es reconocido fuera del equipo como algo que hacemos mejor que otros?", clarification: "Tiene reputación diferenciadora dentro o fuera de la organización." }),
+    Object.freeze({ question: "¿Hemos invertido tiempo o recursos en protegerlo o fortalecerlo?", clarification: "Está cuidado, formalizado o protegido como un activo estratégico." })
+  ]);
+
   function buildPhase2Order(){ appState.phase2Order = []; for(let i=0;i<appState.phase1Entries.length;i++) appState.phase2Order.push(i); shuffleArray(appState.phase2Order); }
 
   function transitionToPhase2(){
@@ -817,12 +1006,12 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
         card.className='hallazgo-card revealed';
         const h4=document.createElement('h4'); h4.textContent = e.tipo;
         const p=document.createElement('p'); p.textContent = e.hallazgo;
-        card.appendChild(h4); card.appendChild(p);
+        appendSafe(card, h4); appendSafe(card, p);
       }
       if(!e.processed){
         card.addEventListener('click', ()=> onSelectPhase2Hallazgo(pos));
       }
-      wrap.appendChild(card);
+      appendSafe(wrap, card);
     }
     appState.phase2SelectedIndex = null;
     if(refs.btnDrawStar) refs.btnDrawStar.disabled = true;
@@ -841,14 +1030,14 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       if(i===pos){
         c.className='hallazgo-card revealed locked';
         const e = appState.phase1Entries[appState.phase2Order[i]];
-        c.innerHTML=''; // se reemplaza por contenido seguro a continuación
+        c.innerHTML='';
         const h4=document.createElement('h4'); h4.textContent = e.tipo;
         const p=document.createElement('p'); p.textContent = e.hallazgo;
-        c.appendChild(h4); c.appendChild(p);
+        appendSafe(c, h4); appendSafe(c, p);
         e.revealed = true;
       } else {
         const other = refs.phase2HallazgosWrap.children[i];
-        other.classList.add('locked');
+        other && other.classList && other.classList.add('locked');
       }
     });
     refs.btnDrawStar && (refs.btnDrawStar.disabled = false);
@@ -870,7 +1059,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
         const strong = document.createElement('strong'); strong.textContent = card.question;
         const br = document.createElement('div'); br.style.height = '6px';
         const em = document.createElement('em'); em.textContent = (card.clarification || '');
-        refs.revealedStar.appendChild(strong); refs.revealedStar.appendChild(br); refs.revealedStar.appendChild(em);
+        appendSafe(refs.revealedStar, strong); appendSafe(refs.revealedStar, br); appendSafe(refs.revealedStar, em);
       }
 
       setupVotingUI();
@@ -890,7 +1079,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const chk=document.createElement('input'); chk.type='checkbox'; chk.dataset.playerIndex=String(i);
       chk.addEventListener('change', onVoterChange);
       const lbl=document.createElement('span'); lbl.textContent=pl;
-      row.appendChild(chk); row.appendChild(lbl); refs.votersList.appendChild(row);
+      appendSafe(row, chk); appendSafe(row, lbl); appendSafe(refs.votersList, row);
     });
     refs.countYesEl && (refs.countYesEl.textContent='0');
     refs.countNoEl && (refs.countNoEl.textContent=String(appState.players.length));
@@ -964,6 +1153,23 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     appState.phase1Entries.forEach(e=>{ if(e && typeof e.finalScore === 'number') totals[e.jugador] = (totals[e.jugador]||0) + e.finalScore; });
     const ranking = Object.entries(totals).map(([player, score])=>({player, score}));
     ranking.sort((a,b)=> b.score - a.score);
+
+    // Display organization info above the score table
+    if(refs.resultsOrg){
+      const name = appState.orgName || '';
+      const type = appState.orgType || '';
+      let display = '';
+      if(name) display += `Organización: ${name}`;
+      if(type){
+        if(display) display += ' — ';
+        display += `Tipo: ${type}`;
+        if(type === 'Otra' && appState.orgTypeOther){
+          display += ` (${appState.orgTypeOther})`;
+        }
+      }
+      refs.resultsOrg.textContent = display;
+    }
+
     if(refs.resultsTableBody) refs.resultsTableBody.innerHTML='';
     ranking.forEach((r, idx)=>{
       if(!refs.resultsTableBody) return;
@@ -971,7 +1177,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const tdPos=document.createElement('td'); tdPos.textContent=String(idx+1);
       const tdPlayer=document.createElement('td'); tdPlayer.textContent=r.player;
       const tdScore=document.createElement('td'); tdScore.textContent=String(r.score);
-      tr.appendChild(tdPos); tr.appendChild(tdPlayer); tr.appendChild(tdScore); refs.resultsTableBody.appendChild(tr);
+      appendSafe(tr, tdPos); appendSafe(tr, tdPlayer); appendSafe(tr, tdScore); appendSafe(refs.resultsTableBody, tr);
     });
 
     const winners = appState.phase1Entries.filter(e=> e.classification && e.classification.decision === 'Sí').slice().sort((a,b)=> (b.finalScore||0) - (a.finalScore||0));
@@ -982,7 +1188,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const tdH=document.createElement('td'); tdH.textContent=e.hallazgo;
       const tdT=document.createElement('td'); tdT.textContent=e.tipo;
       const tdN=document.createElement('td'); tdN.textContent=(e.respondio==='Sí' && e.caracteristica)?`cumple con ${e.caracteristica}`:'';
-      tr.appendChild(tdH); tr.appendChild(tdT); tr.appendChild(tdN); refs.winnersTableBody.appendChild(tr);
+      appendSafe(tr, tdH); appendSafe(tr, tdT); appendSafe(tr, tdN); appendSafe(refs.winnersTableBody, tr);
     });
 
     const qualifiers = appState.phase1Entries.filter(e=> e.classification && e.classification.decision === 'No').slice().sort((a,b)=> (b.puntaje||0)-(a.puntaje||0));
@@ -993,7 +1199,7 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
       const tdH=document.createElement('td'); tdH.textContent=e.hallazgo;
       const tdT=document.createElement('td'); tdT.textContent=e.tipo;
       const tdN=document.createElement('td'); tdN.textContent=(e.respondio==='Sí' && e.caracteristica)?`cumple con ${e.caracteristica}`:'';
-      tr.appendChild(tdH); tr.appendChild(tdT); tr.appendChild(tdN); refs.qualifiersTableBody.appendChild(tr);
+      appendSafe(tr, tdH); appendSafe(tr, tdT); appendSafe(tr, tdN); appendSafe(refs.qualifiersTableBody, tr);
     });
 
     showScreen('results');
@@ -1005,6 +1211,18 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     appState.phase1Entries.length = 0;
     appState.currentPlayerIndex = 0;
     clearPhase1Board();
+    // reset partida fields
+    appState.orgName = '';
+    appState.orgType = '';
+    appState.orgTypeOther = '';
+    if(refs.orgNameInput) refs.orgNameInput.value = '';
+    if(refs.orgTypeSelect) refs.orgTypeSelect.value = '';
+    if(refs.orgTypeOtherInput) refs.orgTypeOtherInput.value = '';
+    if(refs.orgTypeOtherWrap) refs.orgTypeOtherWrap.style.display = 'none';
+
+    // clear results org display
+    if(refs.resultsOrg) refs.resultsOrg.textContent = '';
+
     if(refs.playerNameInput) refs.playerNameInput.value = '';
     if(refs.playerNameInput) refs.playerNameInput.disabled = false;
     if(refs.btnAddPlayer) refs.btnAddPlayer.disabled = false;
@@ -1020,11 +1238,24 @@ button.primary{ background:var(--accent); color:white; border:none; } button:dis
     if(refs.resultsTableBody) refs.resultsTableBody.innerHTML = '';
   }
 
-  function startNewSession(){ resetGameState(); showScreen('players'); setTimeout(()=> refs.playerNameInput && refs.playerNameInput.focus(), 50); }
+  function startNewSession(){ resetGameState(); showScreen('players'); setTimeout(()=> {
+    if(refs.orgNameInput) refs.orgNameInput.focus();
+  }, 50); }
 
   function startGamePhase1(){
     log('startGamePhase1 called, players.length=', appState.players.length);
+    // validate org fields too
+    if(!orgFieldsValid()){
+      showFeedback('Complete los datos de partida obligatorios antes de comenzar (Organización y Tipo).','error');
+      return;
+    }
     if(appState.players.length < MIN_PLAYERS){ showFeedback(`No se puede comenzar: se requieren al menos ${MIN_PLAYERS} jugadores.`, 'error'); return; }
+
+    // store partida data
+    appState.orgName = refs.orgNameInput ? (refs.orgNameInput.value || '').trim() : '';
+    appState.orgType = refs.orgTypeSelect ? (refs.orgTypeSelect.value || '') : '';
+    appState.orgTypeOther = (appState.orgType === 'Otra' && refs.orgTypeOtherInput) ? (refs.orgTypeOtherInput.value || '').trim() : '';
+
     shuffleArray(appState.players);
     appState.phase1Entries = [];
     appState.currentPlayerIndex = 0;
