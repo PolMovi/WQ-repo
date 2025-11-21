@@ -54,7 +54,17 @@ body{
   border-radius:6px;
 }
 .close-btn:hover{ background:rgba(0,0,0,0.04); color:#111; }
-.app-header{ position: sticky; top: 0; z-index: 20; background: transparent; display:flex; align-items:center; justify-content:center; padding:6px 0 18px 0; margin: -48px 0 8px 0; pointer-events: none; }
+.app-header{
+  position: static;
+  z-index: auto;
+  background: transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 0 18px 0;
+  margin: 0 0 8px 0;
+  pointer-events: auto;
+}
 .app-header h1{ margin:0; font-size:1.6rem; color:var(--accent); text-align:center; pointer-events: auto; }
 .screen-title{ margin-top:0; margin-bottom:12px; font-size:1.15rem; color:#1b2746; }
 .instruction{ background:#f1f7ff; border:1px solid #e6f0ff; padding:10px 12px; border-radius:8px; color:#0b66ff; margin-bottom:12px; }
